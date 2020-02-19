@@ -1,9 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24pt;
+    font-weight: bold;
+    text-shadow: 3px 3px #999999;
+    font-family: "Tahoma", "Verdana", "sans-serif";
+}
+h2 {
+    font-weight: bold;
+    font-family: "Tahoma", "Verdana", "sans-serif";
+}
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#git {
+    float: right;
 }
+
+
