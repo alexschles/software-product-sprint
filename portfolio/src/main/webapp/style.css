@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+body {
+	background-image: url("images/background.png");
+	color: #404040;
+	font-family:  "Tahoma", "Verdana", "sans-serif";
+	padding:0; 
+	margin:0;
+}
+
 h1 {
     text-align: center;
     font-size: 24pt;
