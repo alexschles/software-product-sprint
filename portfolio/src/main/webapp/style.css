@@ -31,14 +31,14 @@ h2 {
     font-weight: bold;
     font-family: "Tahoma", "Verdana", "sans-serif";
 }
-/* Create three equal columns that floats next to each other */
+
 .column {
   float: left;
   width: 33.33%;
   padding: 10px;
   
 }
-/* Clear floats after the columns */
+
 .row:after {
   content: "";
   display: table;
@@ -87,9 +87,6 @@ li{
     margin: .5em 0;
 }
 
-#goal1{
-    float: left;
-}
 
 
 
