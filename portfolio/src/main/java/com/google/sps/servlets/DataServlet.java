@@ -20,19 +20,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.google.gson.Gson;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-   // private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> list = new ArrayList<>();
+
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> list = new ArrayList<>();
-    list.add("This is comment #1");
-    list.add("This is comment #2");
-    list.add("This is comment #3");
+    //list.add("This is comment #1");
+    //list.add("This is comment #2");
+    //list.add("This is comment #3");
     Gson gson = new Gson();
     String json = gson.toJson(list);
     
@@ -40,4 +41,28 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
+
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = getParameter(request, "text-input", "");
+    
+    // Break the text into individual words.
+    String[] words = text.split("\\s*,\\s*");
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println(Arrays.toString(words));
+  }
+
+ private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
+
+ 
 }

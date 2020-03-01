@@ -43,9 +43,8 @@ function addRandomFact() {
 
 function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
-        const statsListElement = document.getElementById('greeting-container');
+        const statsListElement = document.getElementById('comments-container');
         statsListElement.innerHTML = '' + data;
-
   });
 }
 
