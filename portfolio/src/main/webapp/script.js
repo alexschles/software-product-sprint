@@ -28,24 +28,17 @@ function addRandomFact() {
 }
 
 
-
-
-
- /* Another way to use fetch is by using the async and await keywords. This
- * allows you to use the return values directly instead of going through
- * Promises.
- */
-//async function getGreetingUsingAsyncAwait() {
- // const response = await fetch('/greeting');
- // const quote = await response.text();
- // document.getElementById('greeting').innerText = quote;
-//}
-
 function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
-        const statsListElement = document.getElementById('comments-container');
-        statsListElement.innerHTML = '' + data;
+        const commentsElement = document.getElementById('comments-container');
+        commentsElement.appendChild(createDivElement(data));
   });
+}
+
+function createDivElement(data) {
+  const divElement = document.createElement('div');
+  divElement.innerHTML = data;
+  return divElement;
 }
 
 

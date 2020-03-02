@@ -31,9 +31,6 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //list.add("This is comment #1");
-    //list.add("This is comment #2");
-    //list.add("This is comment #3");
     Gson gson = new Gson();
     String json = gson.toJson(list);
     
@@ -49,11 +46,18 @@ public class DataServlet extends HttpServlet {
     String text = getParameter(request, "text-input", "");
     
     // Break the text into individual words.
+    
     String[] words = text.split("\\s*,\\s*");
+    for(int i = 0; i < words.length; i++) {
+        list.add(words[i]);
+    }
 
     // Respond with the result.
+    
     response.setContentType("text/html;");
     response.getWriter().println(Arrays.toString(words));
+    response.sendRedirect("/index.html");
+    
   }
 
  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
