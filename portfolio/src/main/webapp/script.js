@@ -30,10 +30,18 @@ function addRandomFact() {
 
 function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
+        console.log(data);
+
         const commentsElement = document.getElementById('comments-container');
-        commentsElement.appendChild(createDivElement(data));
+        
+        for (const comment of data) {
+            commentsElement.appendChild(createDivElement(comment));
+        }
+        
   });
+
 }
+
 
 function createDivElement(data) {
   const divElement = document.createElement('div');
@@ -42,5 +50,6 @@ function createDivElement(data) {
 }
 
 
+//window.addEventListener('load', getData);
 
 

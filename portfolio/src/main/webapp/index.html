@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getData()">
     <div id="content">
         <h1>Alexander Schlesinger's Portfolio</h1>
         <a href="https://www.linkedin.com/in/alexanderschlesinger/">Let's Conenct on LinkedIn!</a>
@@ -17,7 +17,7 @@
         <p> Click here for a random fact about me: <button onclick="addRandomFact()">fact</button> </p>
         <div id="fact-container"></div>
 
-        <form onsubmit="getData()" action="/data" method="POST">
+        <form action="/data" method="POST">
 
             <p>Enter your comma separated comments here:</p>
             <textarea name="text-input">comment #1, comment #2, comment #3</textarea>

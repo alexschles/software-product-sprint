@@ -53,10 +53,10 @@ public class DataServlet extends HttpServlet {
     }
 
     // Respond with the result.
-    
     response.setContentType("text/html;");
     response.getWriter().println(Arrays.toString(words));
     response.sendRedirect("/index.html");
+    
     
   }
 
