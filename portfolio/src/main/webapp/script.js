@@ -50,6 +50,6 @@ function createDivElement(data) {
 }
 
 
-//window.addEventListener('load', getData);
+
 
 
