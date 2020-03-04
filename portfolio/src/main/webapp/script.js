@@ -35,7 +35,7 @@ function getData() {
         const commentsElement = document.getElementById('comments-container');
         
         for (const comment of data) {
-            commentsElement.appendChild(createDivElement(comment));
+            commentsElement.appendChild(createListElement(comment));
         }
         
   });
@@ -43,10 +43,10 @@ function getData() {
 }
 
 
-function createDivElement(data) {
-  const divElement = document.createElement('li');
-  divElement.innerHTML = data;
-  return divElement;
+function createListElement(data) {
+  const listElement = document.createElement('li');
+  listElement.innerHTML = data;
+  return listElement;
 }
 
 
