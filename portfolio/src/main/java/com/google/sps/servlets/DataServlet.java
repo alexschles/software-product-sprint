@@ -62,7 +62,12 @@ public class DataServlet extends HttpServlet {
     String text = getParameter(request, "text-input", "");
     
     Entity commentsEntity = new Entity("Comments");
-    commentsEntity.setProperty("comment", text);
+    //commentsEntity.setProperty("comment", text);
+
+    String[] comments = text.split("\\s*,\\s*");
+    for(int i = 0; i < comments.length; i++) {
+        commentsEntity.setProperty("comment" , comments[i]);
+    }
     
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
