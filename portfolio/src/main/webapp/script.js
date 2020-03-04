@@ -44,7 +44,7 @@ function getData() {
 
 
 function createDivElement(data) {
-  const divElement = document.createElement('div');
+  const divElement = document.createElement('li');
   divElement.innerHTML = data;
   return divElement;
 }
