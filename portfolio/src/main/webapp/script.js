@@ -30,7 +30,7 @@ function addRandomFact() {
 
 function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
-        console.log(data);
+       
 
         const commentsElement = document.getElementById('comments-container');
         
