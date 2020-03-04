@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getData()">
     <div id="content">
         <h1>Alexander Schlesinger's Portfolio</h1>
         <a href="https://www.linkedin.com/in/alexanderschlesinger/">Let's Conenct on LinkedIn!</a>
@@ -17,11 +17,15 @@
         <p> Click here for a random fact about me: <button onclick="addRandomFact()">fact</button> </p>
         <div id="fact-container"></div>
 
-        <p>Click here to see a random quote:</p>
-        <button onclick="getGreetingUsingAsyncAwait()">Fetch a greeting!</button>
-        <div id="greeting"></div>
+        <form action="/data" method="POST">
 
-
+            <p>Enter your comment (please submit one comment at a time):</p>
+            <textarea name="text-input">Comment</textarea>
+            <br/><br/>
+            <input type="submit" />
+        </form>
+        <br/>
+        <div id="comments-container"></div>
 
 
 
