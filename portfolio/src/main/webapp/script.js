@@ -45,7 +45,7 @@ function getData() {
 
 function createListElement(data) {
   const listElement = document.createElement('li');
-  listElement.innerHTML = data;
+  listElement.innerHTML = data.text + "[Sentiment Score: " + data.sentimentScore + "]";
   return listElement;
 }
 
