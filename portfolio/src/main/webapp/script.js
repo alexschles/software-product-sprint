@@ -35,7 +35,9 @@ function getData() {
         const commentsElement = document.getElementById('comments-container');
         
         for (const comment of data) {
-            commentsElement.appendChild(createDivElement(comment));
+            if(comment.sentimentScore >= 0) {
+                commentsElement.appendChild(createListElement(comment));
+            }
         }
         
   });
@@ -43,10 +45,10 @@ function getData() {
 }
 
 
-function createDivElement(data) {
-  const divElement = document.createElement('div');
-  divElement.innerHTML = data;
-  return divElement;
+function createListElement(comment) {
+  const listElement = document.createElement('li');
+  listElement.innerHTML = comment.text + "[Sentiment Score: " + comment.sentimentScore + "]";
+  return listElement;
 }
 
 
