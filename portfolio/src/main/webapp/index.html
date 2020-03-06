@@ -112,19 +112,21 @@
                 </td>
             </tr>
         </table>
-        <form action="/data" method="POST">
 
-            <p>Please leave a comment on my portfolio (please submit one comment at a time):</p>
-            <textarea name="text-input">Comment</textarea>
-            <br/><br/>
-            <input type="submit" />
-        </form>
-        <br/>
-        <ul id="comments-container">
-                         
-        </ul>
+        
+        <h2 id="commentsHeader">Comments</h2>
 
+        <div id="comments">
+            <form action="/data" method="POST">
 
+                <p>Please leave a comment on my portfolio (please submit one comment at a time):</p>
+                <textarea name="text-input">Comment</textarea>
+                <br/><br/>
+                <input type="submit" />
+            </form>
+            <br/>
+            <ul id="comments-container"> </ul>
+        </div>
 
     </div>
     </body>
