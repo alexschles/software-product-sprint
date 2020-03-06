@@ -20,9 +20,7 @@ import java.util.Collection;
 public final class FindMeetingQuery {
      Collection<TimeRange> returnCollection = null;;
 
-    //passes:
-    //optionsForNoAttendees()
-    //noOptionsForTooLongOfARequest()
+    //passes: optionsForNoAttendees(), noOptionsForTooLongOfARequest()
 
     public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
        
