@@ -73,8 +73,7 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     String text = getParameter(request, "text-input", "");
     
-    Document doc =
-    Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+    Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
     double score = sentiment.getScore();
@@ -99,19 +98,4 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
 }
