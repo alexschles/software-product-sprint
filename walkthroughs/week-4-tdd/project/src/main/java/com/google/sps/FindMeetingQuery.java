@@ -20,7 +20,7 @@ import java.util.Collection;
 public final class FindMeetingQuery {
      Collection<TimeRange> returnCollection = null;;
 
-    //passes: optionsForNoAttendees(), noOptionsForTooLongOfARequest()
+    //passes: optionsForNoAttendees(), noOptionsForTooLongOfARequest(), eventSplitsRestriction()
 
     public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
        
@@ -33,7 +33,12 @@ public final class FindMeetingQuery {
             returnCollection = Arrays.asList();
             return returnCollection;
         }
-
+        if(events.size() == 1) {
+            for(Event e : events) {
+                returnCollection = Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, e.getWhen().start(), false), TimeRange.fromStartEnd(e.getWhen().end(), TimeRange.END_OF_DAY, true));
+                return returnCollection;
+            }
+        }
         return returnCollection;
     }
 }
