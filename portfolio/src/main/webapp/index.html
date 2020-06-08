@@ -8,11 +8,18 @@
   </head>
   <body onload="getData()">
     <div id="content">
-        <h1>Alexander Schlesinger's Portfolio</h1>
-        <a href="https://www.linkedin.com/in/alexanderschlesinger/">Let's Conenct on LinkedIn!</a>
-        <a id ="git" href="https://github.com/alexschles/public-repo">Check Out My GitHub Repo!</a>
-        
-        <img src="images/me.jpg"/>
+        <div>
+            <h1>Alexander Schlesinger's Portfolio</h1>
+            <div id="social">
+                <a href="https://www.linkedin.com/in/alexanderschlesinger/" target="_blank"> 
+                    <img class="logo-media" src="images/linkedin.png">
+                </a>
+                <a href="https://github.com/alexschles/public-repo" target="_blank">
+                    <img class="logo-media" src="images/github.png">
+                </a>
+            </div>
+        </div>
+        <img id="me" src="images/me.jpg"/>
 
         <p> Click here for a random fact about me: <button onclick="addRandomFact()">fact</button> </p>
         <div id="fact-container"></div>
