@@ -31,6 +31,20 @@ import com.google.gson.Gson;
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
+// [START simple_mail_includes]
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import com.google.appengine.api.mail.BounceNotification.Details;
+import java.io.UnsupportedEncodingException;
+// [END simple__mail_includes]
+
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -46,56 +60,79 @@ public class DataServlet extends HttpServlet {
     }
 
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    Query query = new Query("Comments").addSort("text", SortDirection.DESCENDING);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-    ArrayList<Comment> list = new ArrayList<>();
+        Query query = new Query("Comments").addSort("text", SortDirection.DESCENDING);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+        ArrayList<Comment> list = new ArrayList<>();
+        
+        for (Entity entity : results.asIterable()) {
+            Comment comment = new Comment((String)entity.getProperty("text"), (double)entity.getProperty("score"));
+            list.add(comment);
+        }
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+
     
-    for (Entity entity : results.asIterable()) {
-        Comment comment = new Comment((String)entity.getProperty("text"), (double)entity.getProperty("score"));
-        list.add(comment);
+        // Send the JSON as the response
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
     }
-    Gson gson = new Gson();
-    String json = gson.toJson(list);
-
-    
-    // Send the JSON as the response
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
 
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    String text = getParameter(request, "text-input", "");
-    
-    Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    double score = sentiment.getScore();
-    languageService.close();
-    
-    Entity commentsEntity = new Entity("Comments");
-    commentsEntity.setProperty("text", text);
-    commentsEntity.setProperty("score", score);
-    
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Get the input from the form.
+        String text = getParameter(request, "text-input", "");
+        
+        Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+        LanguageServiceClient languageService = LanguageServiceClient.create();
+        Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+        double score = sentiment.getScore();
+        languageService.close();
+        
+        Entity commentsEntity = new Entity("Comments");
+        commentsEntity.setProperty("text", text);
+        commentsEntity.setProperty("score", score);
+        
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentsEntity);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentsEntity);
 
-    
-    response.sendRedirect("/index.html");  
-  }
-
- private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
+        response.getWriter().print("Sending email with contact info.");
+        sendSimpleMail();
+        
+        response.sendRedirect("/index.html");  
     }
-    return value;
-  }
+
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        String value = request.getParameter(name);
+        if (value == null) {
+        return defaultValue;
+        }
+        return value;
+    }
+
+    private void sendSimpleMail() {
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        try {
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress("comment@aschlesinger1-sps-summer20.appspotmail.com", "Alex SPS Summer Session Portfolio"));
+        msg.addRecipient(Message.RecipientType.TO, new InternetAddress("aschlesinger1@sps-program.com", "Alex Schlesinger"));
+        msg.setSubject("Someone Has Commented on Your Portfolio!");
+        msg.setText("Check out the new comment on your portfolio!");
+        Transport.send(msg);
+        } catch (AddressException e) {
+        // ...
+        } catch (MessagingException e) {
+        // ...
+        } catch (UnsupportedEncodingException e) {
+        // ...
+        }
+    }
+
 }
