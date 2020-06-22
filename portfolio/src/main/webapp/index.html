@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getData()">
+  <body onload="getData();">
     <div id="content">
         <div>
             <h1>Alexander Schlesinger's Portfolio</h1>
@@ -122,7 +122,7 @@
         </table>
 
         
-        <h2 id="commentsHeader">Comments</h2>
+        <h2 id="commentsHeader" onload="isLoggedIn();">Comments</h2>
 
         <div id="comments">
             <form action="/data" method="POST">

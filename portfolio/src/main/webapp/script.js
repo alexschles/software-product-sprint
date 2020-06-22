@@ -30,8 +30,7 @@ function addRandomFact() {
 
 function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
-       
-
+    
         const commentsElement = document.getElementById('comments-container');
         
         for (const comment of data) {
@@ -44,14 +43,48 @@ function getData() {
 
 }
 
-
 function createListElement(comment) {
   const listElement = document.createElement('li');
   listElement.innerHTML = comment.text + "[Sentiment Score: " + comment.sentimentScore + "]";
   return listElement;
 }
 
+//check 
+function isLoggedIn() {
+    fetch('/login').then(function (response) {
+	// The API call was successful!
+	return response.text();
+    }).then(function (text) {
+        // This is the HTML from our response as a text string
+        console.log(typeof text);
+       // console.log(text === "In\n");
 
+        var parameter;
+        if(text == "In\n") { //the newline char is there bc that's what is produced by text response
+            parameter = "In";
+        }
+        else {
+            parameter = text; 
+        }
+
+        hideAndUnhideComments(status);
+
+    }).catch(function (err) {
+        // There was an error
+        console.warn('Something went wrong.', err);
+    });
+}
+
+function hideAndUnhideComments(response) {
+    var x = document.getElementById("comments");
+    if (response === "In") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+        var newParagraph = document.createElement('p');
+        document.getElementById("commentsHeader").appendChild(newParagraph);
+    }
+}
 
 
 
